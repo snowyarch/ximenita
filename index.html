@@ -4,137 +4,181 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para ti</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    min-height: 100vh;
-    background: #1a0a0a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lato', sans-serif;
-    overflow-x: hidden;
-  }
-  .petals-container {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .petal {
-    position: absolute;
-    top: -30px;
-    animation: fall linear infinite;
-    opacity: 0.6;
-  }
-  @keyframes fall {
-    0% { transform: translateY(-30px) rotate(0deg); opacity: 0.6; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-  }
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-    width: 100%;
-    padding: 2rem 1.5rem;
-  }
-  .envelope {
-    background: linear-gradient(145deg, #fff8f0, #fff0e8);
-    border-radius: 16px;
-    padding: 3.5rem 3rem;
-    box-shadow: 0 20px 60px rgba(180,50,50,0.25), 0 4px 16px rgba(0,0,0,0.3);
-    border: 1px solid rgba(210,120,100,0.2);
-    opacity: 0;
-    transform: translateY(40px);
-    animation: reveal 1.2s ease forwards;
-    animation-delay: 0.5s;
-  }
-  @keyframes reveal {
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .seal { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
-  .to { font-family:'Playfair Display',serif; font-style:italic; font-size:0.9rem; color:#b06040; text-align:center; letter-spacing:2px; text-transform:uppercase; margin-bottom:0.4rem; }
-  .name { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:600; color:#8b2020; text-align:center; margin-bottom:2.5rem; line-height:1.2; }
-  .divider { display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem; }
-  .divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,#d4806050,transparent); }
-  .divider-icon { font-size:1rem; color:#c06050; }
-  .story-section { margin-bottom:2rem; }
-  .section-label { font-size:0.7rem; letter-spacing:3px; color:#b06040; text-transform:uppercase; margin-bottom:0.8rem; font-weight:400; }
-  .story-card { background:rgba(180,70,50,0.05); border-left:3px solid #c07060; border-radius:0 10px 10px 0; padding:1.2rem 1.4rem; margin-bottom:1rem; }
-  .story-card p { font-family:'Playfair Display',serif; font-style:italic; font-size:1rem; color:#4a2020; line-height:1.8; }
-  .date-badge { display:inline-flex; align-items:center; gap:0.5rem; background:#8b2020; color:#fff0e8; padding:0.5rem 1.2rem; border-radius:50px; font-size:0.85rem; font-weight:400; letter-spacing:1px; margin-bottom:2rem; }
-  .carta { font-family:'Playfair Display',serif; font-size:1.05rem; color:#3a1a1a; line-height:2; margin-bottom:2.5rem; }
-  .carta p { margin-bottom:1rem; }
-  .likes-grid { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:2.5rem; }
-  .like-tag { background:#fff0e8; border:1px solid #d4806080; color:#8b3020; padding:0.35rem 1rem; border-radius:50px; font-size:0.85rem; }
-  .firma { text-align:right; font-family:'Playfair Display',serif; font-style:italic; }
-  .firma-text { font-size:0.85rem; color:#b06040; margin-bottom:0.3rem; }
-  .firma-name { font-size:1.5rem; color:#8b2020; font-weight:600; }
-  .footer-hearts { text-align:center; font-size:1.2rem; margin-top:2rem; opacity:0.6; animation:pulse 3s ease-in-out infinite; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;overflow-x:hidden;font-family:'EB Garamond',serif;}
+#intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;transition:opacity 1.8s ease;}
+#intro.out{opacity:0;pointer-events:none;}
+#intro-c{position:absolute;inset:0;width:100%;height:100%;}
+.intro-inner{position:relative;z-index:2;text-align:center;padding:1rem;}
+.intro-title{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:6px;color:#c8b8e8;opacity:0;animation:glow 3s ease 1.5s forwards;}
+.intro-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:#8878a8;margin-top:0.8rem;opacity:0;animation:glow 2s ease 3s forwards;}
+.intro-btn{margin-top:2.5rem;background:transparent;border:1px solid #9070c0;color:#c8b8e8;padding:0.65rem 2.2rem;border-radius:50px;font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:3px;cursor:pointer;opacity:0;animation:glow 1s ease 4.5s forwards;transition:all 0.3s;}
+.intro-btn:hover{background:rgba(144,112,192,0.2);}
+@keyframes glow{to{opacity:1;}}
+@keyframes shimmer{0%,100%{opacity:0.6}50%{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fallStar{0%{transform:translateY(-10px) rotate(0deg);opacity:0.7}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+#carta{display:none;min-height:100vh;position:relative;}
+#carta.show{display:block;animation:fadeUp 1.5s ease forwards;}
+#carta-bg{position:fixed;inset:0;z-index:0;}
+#carta-bg canvas{width:100%;height:100%;}
+.nebula{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.nb1{width:500px;height:400px;background:radial-gradient(ellipse,rgba(80,30,120,0.4),transparent 70%);top:-100px;left:-150px;}
+.nb2{width:400px;height:350px;background:radial-gradient(ellipse,rgba(20,60,120,0.3),transparent 70%);bottom:-50px;right:-100px;}
+.nb3{width:300px;height:250px;background:radial-gradient(ellipse,rgba(120,20,80,0.25),transparent 70%);top:40%;left:60%;}
+.stars-fall{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.sf{position:absolute;top:-10px;animation:fallStar linear infinite;}
+.page{position:relative;z-index:2;max-width:700px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+.card{background:rgba(10,5,25,0.75);border:1px solid rgba(150,100,220,0.25);border-radius:20px;padding:3rem 2.5rem;backdrop-filter:blur(12px);}
+.cosmos-divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;}
+.cosmos-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(150,100,220,0.4),transparent);}
+.cosmos-dot{width:4px;height:4px;background:#9070c0;border-radius:50%;box-shadow:0 0 6px #9070c0;}
+.to-label{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:5px;color:#7060a0;text-align:center;text-transform:uppercase;margin-bottom:0.5rem;}
+.big-name{font-family:'Cinzel',serif;font-size:2.8rem;font-weight:600;text-align:center;color:#e0d0ff;letter-spacing:4px;margin-bottom:0.3rem;text-shadow:0 0 30px rgba(180,130,255,0.4);animation:shimmer 3s ease-in-out infinite;}
+.date-pill{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(100,60,180,0.15);border:1px solid rgba(150,100,220,0.3);color:#b0a0d8;padding:0.4rem 1.1rem;border-radius:50px;font-size:0.78rem;letter-spacing:2px;font-family:'Cinzel',serif;margin-bottom:2rem;}
+.section-tag{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:4px;color:#7060a0;text-transform:uppercase;margin-bottom:0.8rem;}
+.story-box{border-left:2px solid rgba(150,100,220,0.4);padding:1rem 1.3rem;margin-bottom:2rem;background:rgba(80,40,140,0.08);border-radius:0 10px 10px 0;}
+.story-box p{font-style:italic;font-size:1rem;color:#c0b0e0;line-height:1.9;}
+.carta-text{font-size:1.05rem;color:#d0c0e8;line-height:2.1;margin-bottom:2rem;}
+.carta-text p{margin-bottom:1rem;}
+.tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.5rem;}
+.tag{background:rgba(80,40,140,0.2);border:1px solid rgba(150,100,220,0.25);color:#b0a0d8;padding:0.3rem 0.9rem;border-radius:50px;font-size:0.8rem;}
+.firma{text-align:right;}
+.firma-de{font-size:0.75rem;color:#7060a0;letter-spacing:2px;font-family:'Cinzel',serif;text-transform:uppercase;margin-bottom:0.3rem;}
+.firma-nombre{font-family:'Cinzel',serif;font-size:1.3rem;color:#c8b0f0;letter-spacing:3px;}
+.footer-stars{text-align:center;margin-top:2rem;color:#5040a0;font-size:0.9rem;letter-spacing:8px;animation:shimmer 4s ease-in-out infinite;}
 </style>
 </head>
 <body>
-<div class="petals-container" id="petals"></div>
-<div class="wrapper">
-  <div class="envelope">
-    <div class="seal">&#127801;</div>
-    <p class="to">Para</p>
-    <h1 class="name">Ximenita</h1>
-    <div class="divider">
-      <div class="divider-line"></div>
-      <span class="divider-icon">&#9825;</span>
-      <div class="divider-line"></div>
-    </div>
-    <div class="story-section">
-      <p class="section-label">Como empezo todo</p>
-      <div class="story-card">
-        <p>Tus amigas se acercaron a mi &mdash; y gracias a ellas, tu y yo empezamos a hablar. Nunca imagine que esa pequena conversacion cambiaria tanto las cosas.</p>
-      </div>
-    </div>
-    <div class="date-badge">Novios desde el 10 de noviembre</div>
-    <div class="carta">
-      <p>Ximena,</p>
-      <p>Se que no soy el mas expresivo del mundo, por eso te escribo esto &mdash; porque hay cosas que se sienten mejor cuando se leen despacio.</p>
-      <p>Me encantan tus risas, como te enojas (aunque a veces me desesperes un poco), lo buena que eres cocinando, y hasta lo malo que juegas Roblox &mdash; eso ultimo me parece adorable, por cierto.</p>
-      <p>No eres la persona mas detallista del mundo &mdash; pero yo si quiero serlo por ti. Y este es mi intento.</p>
-      <p>Gracias por estar aqui. Gracias por ser tu.</p>
-    </div>
-    <p class="section-label">Cositas que me encantan de ti</p>
-    <div class="likes-grid">
-      <span class="like-tag">Tu risa</span>
-      <span class="like-tag">Tus ojos cuando te enojas</span>
-      <span class="like-tag">Lo bien que cocinas</span>
-      <span class="like-tag">Tus siestas infinitas</span>
-      <span class="like-tag">Lo celosa que eres</span>
-      <span class="like-tag">Tu amor a las fresas</span>
-      <span class="like-tag">Lo malo que juegas Roblox</span>
-      <span class="like-tag">Tu existencia entera</span>
-    </div>
-    <div class="firma">
-      <p class="firma-text">Con todo,</p>
-      <p class="firma-name">Tu novio</p>
-    </div>
-    <div class="footer-hearts">&#9825; &#9825; &#9825;</div>
+<div id="intro">
+  <canvas id="intro-c"></canvas>
+  <div class="intro-inner">
+    <p class="intro-title">PARA TI</p>
+    <p class="intro-sub">hay algo esperandote en el universo...</p>
+    <button class="intro-btn" onclick="openCarta()">&#10022; Abrir carta &#10022;</button>
   </div>
 </div>
+ 
+<div id="carta">
+  <div id="carta-bg"><canvas id="carta-c"></canvas></div>
+  <div class="nebula nb1"></div><div class="nebula nb2"></div><div class="nebula nb3"></div>
+  <div class="stars-fall" id="sf"></div>
+  <div class="page">
+    <div class="card">
+      <p class="to-label">dedicado a</p>
+      <h1 class="big-name">XIMENITA</h1>
+      <div class="cosmos-divider"><div class="cosmos-line"></div><div class="cosmos-dot"></div><div class="cosmos-line"></div></div>
+      <p class="section-tag">Como empezo todo</p>
+      <div class="story-box"><p>Tus amigas se acercaron a mi ese dia — y gracias a ellas, tu y yo empezamos a hablar. Nunca imagine que esa pequena conversacion lo cambiaria todo. Acepte sin saber lo que venia, y resulto ser lo mejor que pude haber hecho.</p></div>
+      <div class="date-pill">&#10022; &nbsp; Novios desde el 10 de noviembre</div>
+      <div class="cosmos-divider"><div class="cosmos-line"></div><div class="cosmos-dot"></div><div class="cosmos-line"></div></div>
+      <p class="section-tag">Lo que quiero decirte</p>
+      <div class="carta-text">
+        <p>Ximena,</p>
+        <p>Se que no soy el mas expresivo del mundo, por eso te escribo esto — porque hay cosas que se sienten mejor cuando se leen despacio, sin prisa.</p>
+        <p>Nuestra relacion no siempre es color de rosa, y lo sabes. Hemos tenido desacuerdos, momentos dificiles, y aun asi siempre encontramos la manera de resolverlo. Eso me dice mas de lo que cualquier palabra podria decir.</p>
+        <p>Cuando estoy contigo me siento seguro. Me siento amado, aunque a veces lo expreses a tu manera — y aunque te cueste decirlo con palabras, yo lo siento. Me encantan tus risas, lo buena que eres cocinando, lo celosa que te pones, tus fresas, tus siestas eternas... y hasta lo malo que juegas Roblox — eso ultimo me parece demasiado adorable.</p>
+        <p>No eres la persona mas detallista del mundo — pero yo si quiero serlo por ti. Y este es mi intento.</p>
+        <p>Gracias por estar aqui. Gracias por ser tu.</p>
+      </div>
+      <p class="section-tag">Cositas que me encantan de ti</p>
+      <div class="tags">
+        <span class="tag">Tu risa</span><span class="tag">Tus ojos cuando te enojas</span><span class="tag">Lo bien que cocinas</span><span class="tag">Tus siestas infinitas</span><span class="tag">Lo celosa que eres</span><span class="tag">Tu amor a las fresas</span><span class="tag">Lo malo que juegas Roblox</span><span class="tag">Que siempre volvemos</span><span class="tag">Tu forma de amar</span><span class="tag">Tu existencia entera</span>
+      </div>
+      <div class="cosmos-divider"><div class="cosmos-line"></div><div class="cosmos-dot"></div><div class="cosmos-line"></div></div>
+      <div class="firma"><p class="firma-de">con todo</p><p class="firma-nombre">Tu novio</p></div>
+      <div class="footer-stars">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+    </div>
+  </div>
+</div>
+ 
 <script>
-const symbols = ['*','+','o','.','x'];
-const colors = ['#c06060','#d08080','#e0a0a0','#b05050'];
-const container = document.getElementById('petals');
-for(let i=0;i<18;i++){
-  const p=document.createElement('div');
-  p.className='petal';
-  p.style.color=colors[Math.floor(Math.random()*colors.length)];
-  p.style.fontSize=(10+Math.random()*14)+'px';
-  p.style.left=Math.random()*100+'%';
-  p.style.animationDuration=(5+Math.random()*6)+'s';
-  p.style.animationDelay=(Math.random()*6)+'s';
-  p.textContent=symbols[Math.floor(Math.random()*symbols.length)];
-  container.appendChild(p);
+const ic=document.getElementById('intro-c');
+const ictx=ic.getContext('2d');
+function resizeIntro(){ic.width=window.innerWidth;ic.height=window.innerHeight;}
+resizeIntro();
+window.addEventListener('resize',resizeIntro);
+const istars=Array.from({length:200},()=>({x:Math.random()*ic.width,y:Math.random()*ic.height,r:Math.random()*1.2+0.2,a:Math.random(),s:Math.random()*0.015+0.003}));
+let shootTimer=0,shootActive=false,shootProgress=0,shootX=0,shootY=0,moonFloat=0;
+ 
+function drawBoy(ctx,cx,cy){
+  const skin='#e8a87c',hair='#1a0a00',shirt='#3a5a9a',pants='#1a3060';
+  ctx.beginPath();ctx.ellipse(cx,cy+3,17,5,0,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,0.25)';ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy+5,15,8,0,0,Math.PI);ctx.fillStyle=pants;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx-11,cy+8,5,3,-0.3,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+11,cy+8,5,3,0.3,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.roundRect(cx-9,cy-15,18,20,4);ctx.fillStyle=shirt;ctx.fill();
+  ctx.beginPath();ctx.moveTo(cx-9,cy-11);ctx.quadraticCurveTo(cx-19,cy-3,cx-13,cy+5);ctx.lineWidth=5;ctx.strokeStyle=shirt;ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx+9,cy-11);ctx.quadraticCurveTo(cx+19,cy-3,cx+13,cy+5);ctx.lineWidth=5;ctx.strokeStyle=shirt;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx-13,cy+5,3.5,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.arc(cx+13,cy+5,3.5,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.roundRect(cx-4,cy-19,8,7,2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy-27,11,12,0,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy-31,11,8,0,Math.PI,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx-8,cy-28,5,6,-0.3,Math.PI,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+8,cy-28,5,6,0.3,Math.PI,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.arc(cx-4,cy-27,1.5,0,Math.PI*2);ctx.fillStyle='#2a1a0a';ctx.fill();
+  ctx.beginPath();ctx.arc(cx+4,cy-27,1.5,0,Math.PI*2);ctx.fillStyle='#2a1a0a';ctx.fill();
+  ctx.beginPath();ctx.arc(cx,cy-23,4,0.1,Math.PI-0.1);ctx.lineWidth=1.2;ctx.strokeStyle='#8a4a2a';ctx.stroke();
 }
+ 
+function drawGirl(ctx,cx,cy){
+  const skin='#f5c5a0',hair='#e85a10',shirt='#8050b0',pants='#503080';
+  ctx.beginPath();ctx.ellipse(cx,cy+3,17,5,0,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,0.25)';ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy+5,15,8,0,0,Math.PI);ctx.fillStyle=pants;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx-11,cy+8,5,3,-0.3,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+11,cy+8,5,3,0.3,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.roundRect(cx-9,cy-15,18,20,4);ctx.fillStyle=shirt;ctx.fill();
+  ctx.beginPath();ctx.moveTo(cx-9,cy-11);ctx.quadraticCurveTo(cx-19,cy-3,cx-13,cy+5);ctx.lineWidth=5;ctx.strokeStyle=shirt;ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx+9,cy-11);ctx.quadraticCurveTo(cx+19,cy-3,cx+13,cy+5);ctx.lineWidth=5;ctx.strokeStyle=shirt;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx-13,cy+5,3.5,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.arc(cx+13,cy+5,3.5,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.roundRect(cx-4,cy-19,8,7,2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy-27,11,12,0,0,Math.PI*2);ctx.fillStyle=skin;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy-32,12,9,0,Math.PI,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx-10,cy-28,4,5,-0.2,Math.PI*0.8,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+10,cy-28,4,5,0.2,Math.PI*0.8,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,cy-35,6,4,0,0,Math.PI*2);ctx.fillStyle=hair;ctx.fill();
+  ctx.beginPath();ctx.arc(cx-4,cy-27,1.5,0,Math.PI*2);ctx.fillStyle='#2a1a0a';ctx.fill();
+  ctx.beginPath();ctx.arc(cx+4,cy-27,1.5,0,Math.PI*2);ctx.fillStyle='#2a1a0a';ctx.fill();
+  ctx.beginPath();ctx.arc(cx,cy-23,4,0.1,Math.PI-0.1);ctx.lineWidth=1.2;ctx.strokeStyle='#8a4a2a';ctx.stroke();
+}
+ 
+function drawIntroScene(){
+  ictx.clearRect(0,0,ic.width,ic.height);
+  ictx.fillStyle='#000';ictx.fillRect(0,0,ic.width,ic.height);
+  istars.forEach(s=>{s.a+=s.s;const alpha=(Math.sin(s.a)+1)/2*0.8+0.15;ictx.beginPath();ictx.arc(s.x,s.y,s.r,0,Math.PI*2);ictx.fillStyle=`rgba(220,200,255,${alpha})`;ictx.fill();});
+  shootTimer++;
+  if(shootTimer>140){shootTimer=0;shootActive=true;shootProgress=0;shootX=Math.random()*ic.width*0.5+100;shootY=Math.random()*ic.height*0.3+40;}
+  if(shootActive){shootProgress+=0.04;const ex=shootX+shootProgress*220,ey=shootY+shootProgress*90;const grad=ictx.createLinearGradient(shootX,shootY,ex,ey);grad.addColorStop(0,'rgba(200,180,255,0)');grad.addColorStop(0.5,'rgba(200,180,255,0.9)');grad.addColorStop(1,'rgba(200,180,255,0)');ictx.beginPath();ictx.moveTo(shootX,shootY);ictx.lineTo(ex,ey);ictx.strokeStyle=grad;ictx.lineWidth=1.5;ictx.stroke();if(shootProgress>=1)shootActive=false;}
+  moonFloat+=0.02;
+  const W=ic.width,H=ic.height;
+  const moonX=W*0.68,moonY=H*0.22+Math.sin(moonFloat)*4;
+  const mg2=ictx.createRadialGradient(moonX,moonY,10,moonX,moonY,55);mg2.addColorStop(0,'rgba(255,240,180,0.15)');mg2.addColorStop(1,'rgba(255,240,180,0)');ictx.beginPath();ictx.arc(moonX,moonY,55,0,Math.PI*2);ictx.fillStyle=mg2;ictx.fill();
+  const mg=ictx.createRadialGradient(moonX-6,moonY-6,3,moonX,moonY,30);mg.addColorStop(0,'#fff8dc');mg.addColorStop(1,'#e8c860');ictx.beginPath();ictx.arc(moonX,moonY,30,0,Math.PI*2);ictx.fillStyle=mg;ictx.fill();
+  ictx.beginPath();ictx.arc(moonX+12,moonY-8,24,0,Math.PI*2);ictx.fillStyle='#000814';ictx.fill();
+  const groundY=H*0.78;
+  const hg=ictx.createLinearGradient(0,groundY-50,0,H);hg.addColorStop(0,'#1a1040');hg.addColorStop(1,'#080418');
+  ictx.beginPath();ictx.moveTo(0,H);ictx.lineTo(0,groundY+20);ictx.quadraticCurveTo(W*0.2,groundY-50,W*0.5,groundY-10);ictx.quadraticCurveTo(W*0.8,groundY+30,W,groundY);ictx.lineTo(W,H);ictx.closePath();ictx.fillStyle=hg;ictx.fill();
+  const flt=Math.sin(moonFloat*1.5)*2,sitY=groundY-18+flt,centerX=W*0.4;
+  drawBoy(ictx,centerX-20,sitY);
+  drawGirl(ictx,centerX+20,sitY);
+  ictx.beginPath();ictx.arc(centerX,sitY+5,4,0,Math.PI*2);ictx.fillStyle='rgba(245,180,150,0.5)';ictx.fill();
+  const hx=centerX,hy=sitY-58+Math.sin(moonFloat*2)*4;
+  ictx.save();ictx.fillStyle='rgba(220,80,140,0.8)';ictx.beginPath();ictx.moveTo(hx,hy+6);ictx.bezierCurveTo(hx,hy,hx-9,hy-9,hx-9,hy-3);ictx.bezierCurveTo(hx-9,hy-9,hx,hy-11,hx,hy-5);ictx.bezierCurveTo(hx,hy-11,hx+9,hy-9,hx+9,hy-3);ictx.bezierCurveTo(hx+9,hy-9,hx,hy,hx,hy+6);ictx.fill();ictx.restore();
+  requestAnimationFrame(drawIntroScene);
+}
+drawIntroScene();
+ 
+const cc=document.getElementById('carta-c');const cctx=cc.getContext('2d');
+function resizeCarta(){cc.width=window.innerWidth;cc.height=window.innerHeight;}resizeCarta();window.addEventListener('resize',resizeCarta);
+const cstars=Array.from({length:150},()=>({x:Math.random()*cc.width,y:Math.random()*cc.height,r:Math.random()*1+0.2,a:Math.random(),s:Math.random()*0.01+0.002}));
+function drawCartaBg(){cctx.clearRect(0,0,cc.width,cc.height);cctx.fillStyle='#030010';cctx.fillRect(0,0,cc.width,cc.height);cstars.forEach(s=>{s.a+=s.s;const alpha=(Math.sin(s.a)+1)/2*0.6+0.1;cctx.beginPath();cctx.arc(s.x,s.y,s.r,0,Math.PI*2);cctx.fillStyle=`rgba(200,180,255,${alpha})`;cctx.fill();});requestAnimationFrame(drawCartaBg);}
+function spawnFallingStars(){const container=document.getElementById('sf');for(let i=0;i<25;i++){const s=document.createElement('div');s.className='sf';s.textContent='✦';s.style.left=Math.random()*100+'%';s.style.fontSize=(8+Math.random()*8)+'px';s.style.color='rgba(180,150,255,0.6)';s.style.animationDuration=(8+Math.random()*10)+'s';s.style.animationDelay=(Math.random()*8)+'s';container.appendChild(s);}}
+function openCarta(){document.getElementById('intro').classList.add('out');setTimeout(()=>{document.getElementById('intro').style.display='none';document.getElementById('carta').classList.add('show');drawCartaBg();spawnFallingStars();},1800);}
 </script>
 </body>
 </html>
+ 
